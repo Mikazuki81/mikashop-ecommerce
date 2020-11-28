@@ -1,0 +1,25 @@
+{
+  "name": "mikashop",
+  "version": "1.0.0",
+  "description": "find cheapest products",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikazuki81/mikashop-ecommerce.git"
+  },
+  "author": "Kistiyanto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikazuki81/mikashop-ecommerce/issues"
+  },
+  "homepage": "https://github.com/Mikazuki81/mikashop-ecommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
