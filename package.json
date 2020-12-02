@@ -1,5 +1,6 @@
 {
   "name": "mikashop",
+  "type": "module",
   "version": "1.0.0",
   "description": "find cheapest products",
   "main": "server.js",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/Mikazuki81/mikashop-ecommerce#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "env": "0.0.2",
     "express": "^4.17.1"
   },
