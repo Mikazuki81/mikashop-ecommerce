@@ -1,31 +1,22 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import {
-  Container,
-  Col,
-  Row,
-  ListGroup,
-  ListGroupItem,
-  Card,
-  Button,
-  Image,
-} from "react-bootstrap"
-import products from "../products"
+import { Col, Row, ListGroup, Card, Button, Image } from "react-bootstrap"
 import Rating from "../components/Rating"
 
+import axios from "axios"
+
 function ProductPage({ match }) {
-  const product = products.find(p => p._id === match.params.id)
+  const [product, setProduct] = useState({})
 
-  const {
-    price,
-    description,
-    numReviews,
-    image,
-    rating,
-    name,
-    countInStock,
-  } = product
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`)
 
+      setProduct(data)
+    }
+
+    fetchProduct()
+  }, [])
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
@@ -34,21 +25,25 @@ function ProductPage({ match }) {
 
       <Row>
         <Col md={6}>
-          <Image src={image} alt={name} rounded fluid />
+          <Image src={product.image} alt={product.name} rounded fluid />
         </Col>
         <Col md={3}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h3>{name}</h3>
+              <h3>{product.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
-                value={rating}
-                text={`${numReviews} review${numReviews > 1 ? "s" : " "}`}
+                value={product.rating}
+                text={`${product.numReviews} review${
+                  product.numReviews > 1 ? "s" : " "
+                }`}
               />
             </ListGroup.Item>
-            <ListGroup.Item>Price : ${price}</ListGroup.Item>
-            <ListGroup.Item>Description : ${description}</ListGroup.Item>
+            <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>
+              Description : ${product.description}
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={3}>
@@ -58,19 +53,23 @@ function ProductPage({ match }) {
                 <Row>
                   <Col>Price</Col>
                   <Col>
-                    <strong>${price}</strong>
+                    <strong>${product.price}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Stock:</Col>
-                  <Col>{countInStock > 0 ? "In Stock" : "Out Of Stock:("}</Col>
+                  <Col>
+                    {product.countInStock > 0 ? "In Stock" : "Out Of Stock:("}
+                  </Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Button disabled={countInStock === 0} className='btn btn-block'>
+                <Button
+                  disabled={product.countInStock === 0}
+                  className='btn btn-block'>
                   Add to Cart
                 </Button>
               </ListGroup.Item>
