@@ -61,10 +61,10 @@ const productSchema = mongoose.Schema(
     },
   },
   {
-    timestampts: true,
+    timestamps: true,
   }
 )
 
 const Product = mongoose.Model("Product", productSchema)
 
-export default User
+export default Product
